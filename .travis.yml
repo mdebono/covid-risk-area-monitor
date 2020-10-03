@@ -2,5 +2,5 @@ language: python
 python:
   - "3.7"
 env:
-  - EMAILS=XXX
-script: python worker/tests.py
+  - EMAILS=XXX DJANGO_SECRET_KEY=XXX DJANGO_SETTINGS_MODULE=web.settings
+script: python manage.py migrate && python -m worker.tests

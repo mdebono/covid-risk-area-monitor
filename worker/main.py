@@ -1,16 +1,24 @@
 ##############################
 # COVID-19 risk area monitor #
 ##############################
-
 import os
+import django
+from django.conf import settings
+django.setup()
+
 import re
 import requests
 
-COUNTRY = 'Schweiz'
-URL = 'https://www.rki.de/DE/Content/InfAZ/N/Neuartiges_Coronavirus/Risikogebiete_neu.html'
-XPATH_COUNTRY = '//*[@id="main"]//ul/li[contains(.,"{}")]'
-REGEX_COUNTRY = '<li>{}.*(\\n.*\\n)?</li>'
-REGEX_TIME = '(?<=<p>Stand: ).*(?= Uhr</p>)'
+from cram.models import Page, Subscription
+
+DE_PAGE = Page.objects.get(id=1)
+URL = DE_PAGE.url
+XPATH_COUNTRY = DE_PAGE.xpath_country
+REGEX_COUNTRY = DE_PAGE.regex_country
+REGEX_TIME = DE_PAGE.regex_time
+
+MY_SUBSCRIPTION = Subscription.objects.get(id=1)
+COUNTRY = MY_SUBSCRIPTION.country
 
 def get_xpath(country):
     return XPATH_COUNTRY.format(country)

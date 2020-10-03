@@ -1,8 +1,18 @@
 import unittest
 
-import main
+import worker.main as main
+from cram.models import Page, Subscription
 
 class TestMain(unittest.TestCase):
+    def setUp(self):
+        p = Page(url='http://example.com', country='XX')
+        p.xpath_country = '//*[@id="main"]//ul/li[contains(.,"{}")]'
+        p.regex_country = '<li>{}.*(\\n.*\\n)?</li>'
+        p.regex_time = '(?<=<p>Stand: ).*(?= Uhr</p>)'
+        p.save()
+        s = Subscription(country='XXX')
+        s.save()
+
     def test_get_xpath(self):
         self.assertEqual(main.get_xpath('XXX'), '//*[@id="main"]//ul/li[contains(.,"XXX")]')
 
