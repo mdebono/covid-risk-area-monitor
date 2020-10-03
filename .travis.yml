@@ -3,4 +3,4 @@ python:
   - "3.7"
 env:
   - EMAILS=XXX
-script: python tests.py
+script: python worker/tests.py
