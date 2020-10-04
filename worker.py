@@ -2,6 +2,8 @@
 # COVID-19 risk area monitor #
 ##############################
 import os
+os.environ['DJANGO_SETTINGS_MODULE'] = 'web.settings'
+
 import django
 from django.conf import settings
 django.setup()
